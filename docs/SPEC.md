@@ -48,8 +48,8 @@ Plataforma web SaaS de **gestión y trazabilidad del ciclo de vida documental**,
 | Rol | Descripción |
 |---|---|
 | **Administrador / Coordinadora Documental** | Carga documentos, crea transmitales, asigna revisores, actualiza el log, cierra ciclos. Equivalente al rol actual de Nathalie. |
-| **Revisor** | Recibe documentos asignados, descarga, sube versión comentada o aprueba. Solo ve sus pendientes. |
-| **Gerente / Supervisor** | Vista de estado general por proyecto/contrato. Sin edición. |
+| **Revisor** | Recibe documentos asignados, descarga, sube versión comentada o aprueba. Solo ve sus pendientes. Puede filtrar por área. |
+| **Gerente / Supervisor** | Vista de estado general por proyecto/contrato/área. Sin edición. |
 | *(Evaluando)* **Contratista externo** | Acceso directo en evaluación. Por ahora la coordinadora recibe documentos por correo y los sube manualmente en el módulo de recepción. |
 
 ---
@@ -113,8 +113,9 @@ El sistema debe gestionar ambos tipos y reflejar el estado actual de cada docume
 ### 6.1 Módulo Core — Control Documental *(MVP)*
 
 - **Bandeja de entrada / Dashboard**
-  - Vista por proyecto/contrato
+  - Vista por proyecto/contrato/área
   - Documentos pendientes por rol
+  - Filtrado por áreas del proyecto
   - Alertas de vencimiento de plazo
 
 - **Gestión de Transmitales**
@@ -141,6 +142,7 @@ El sistema debe gestionar ambos tipos y reflejar el estado actual de cada docume
 - **Estructura de carpetas / Archivos**
   - Organización por: Proyecto → Contrato → Tipo de entregable → Revisión
   - Compatible con la estructura que Nathalie ya implementó en SharePoint
+  - Los documentos se pueden filtrar por área (asociación opcional)
 
 - **Notificaciones internas**
   - Alertas en plataforma (no email) para revisores y coordinadora
@@ -160,13 +162,20 @@ Empresa
                     └── Documentos
                           └── Revisiones (versiones)
                                 └── Comentarios / Archivos marcados
+        └── Áreas asociadas (0 a N, opcional)
+
+Áreas
+  └── Etiquetas opcionales que pueden asociarse a Proyectos (0 a N)
+  └── Sirven para filtrar documentos dentro de un proyecto
 
 Usuarios
   └── Roles (Admin, Revisor, Gerente)
   └── Asignaciones de documentos
+  └── Filtros por área (opcional)
 
 Log de Control
   └── Registro por documento (auto-generado)
+  └── Identificación de área (si aplica)
 
 Timbres / Sellos
   └── Configurables por empresa
@@ -219,6 +228,7 @@ Estas preguntas deben responderse antes de avanzar a diseño o desarrollo:
 - [x] ~~¿Los contratistas externos tendrán acceso a la plataforma?~~ → **En evaluación. MVP: la coordinadora recibe por correo y sube manualmente.**
 - [x] ~~¿Qué tipos de archivo deben soportarse?~~ → **Sin restricción de tipo. PDF, XLSX, DWG, MP4, etc.**
 - [x] ~~¿El timbre digital debe tener validez legal?~~ → **No. Es interno/operativo. Cada empresa configura el suyo.**
+- [x] ~~¿Cómo se organizan los proyectos?~~ → **Se pueden asociar 1 a N áreas por proyecto para filtrado.**
 - [ ] ¿Cómo se manejan los plazos de respuesta? ¿Son fijos por tipo de documento o configurables?
 - [ ] ¿Se requiere exportación del Log a Excel en MVP?
 - [ ] ¿Cuál es el volumen esperado de documentos por proyecto/mes?
